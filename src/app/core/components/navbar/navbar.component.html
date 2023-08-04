@@ -10,6 +10,7 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
 
+        <ng-container *ngIf="user !== undefined && user?.roles?.includes('Writer')">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Admin
@@ -22,8 +23,24 @@
 
           </ul>
         </li>
+      </ng-container>
 
       </ul>
+      <!--Hide and show the login button-->
+        <div class="d-flex">
+<ng-container *ngIf="user === undefined ; else showLogout">
+  <!--Show login in button-->
+ <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
+</ng-container>
+
+<ng-template #showLogout>
+  <div class="d-flex align-items-center">
+    <span>{{user?.email}}</span>
+    <button class="btn btn-primary" (click)="onlogout()">LogOut</button>
+  </div>
+</ng-template>
+
+        </div>
 
     </div>
   </div>
